@@ -64,7 +64,7 @@ function App() {
               </main>
 
               <Footer />
-             {/* <Chatbot />*/}
+              {/*<Chatbot />*/}
               <ScrollToTop />
             </motion.div>
           )}

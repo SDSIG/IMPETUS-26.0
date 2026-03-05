@@ -15,6 +15,7 @@ export const Sponsors = () => {
         url: "https://hal-india.co.in",
       },
     ],
+
     gold: [
       {
         name: "KPTCL",
@@ -22,20 +23,51 @@ export const Sponsors = () => {
         url: "https://kptcl.karnataka.gov.in",
       },
     ],
+
+    silver: [
+      {
+        name: "Karnataka Power Corporation Limited",
+        logo: "/sponsors/kpcl.png",
+        url: "https://kpcl.karnataka.gov.in",
+      },
+    ],
+
     general: [
       {
         name: "Woodkraft",
         logo: "/sponsors/woodkraft.png",
         url: "https://www.woodkraft.com/",
       },
+      {
+        name: "CPCT",
+        logo: "/sponsors/cpct.png",
+        url: "https://cpct.mp.gov.in",
+      },
+      {
+        name: "AstraSilica",
+        logo: ["/sponsors/astrasilica.png", "/sponsors/astrasilica2.png"],
+        url: "https://www.linkedin.com/company/astrasilica/",
+      },
+      {
+        name: "Med Wali Consultancy",
+        logo: "/sponsors/medwali.png",
+        url: "#",
+      },
     ],
 
-    // ✅ ADDED MERCHANDISE SPONSOR
     merchandise: [
       {
         name: "Chumbak",
-        logo: "/sponsors/chumbak.png", // ⬅️ Put your uploaded image here
-        url: "https://www.chumbak.com",
+        logo: "/sponsors/chumbak.png",
+        url: "https://chumpay.in/",
+      },
+    ],
+
+    technical: [
+      {
+        name: "IEEE Bangalore Section",
+        logo: "/sponsors/ieee.png",
+        url: "https://ieeebangalore.org",
       },
     ],
   };
@@ -96,23 +128,25 @@ export const Sponsors = () => {
 
           <TierBlock title="Gold Sponsor" sponsors={sponsors.gold} />
 
-          <TierBlock title="General Sponsor" sponsors={sponsors.general} />
+          <TierBlock title="Silver Sponsor" sponsors={sponsors.silver} />
 
-          {/* ✅ NEW TIER ADDED BELOW GENERAL */}
+          <TierBlock title="General Sponsor" sponsors={sponsors.general} row />
+
           <TierBlock
-            title="Merchandise Sponsor"
+            title="Merchandise Partner"
             sponsors={sponsors.merchandise}
           />
+
+          <TierBlock title="Technical Partner" sponsors={sponsors.technical} />
         </div>
       </div>
     </section>
   );
 };
 
-const TierBlock = ({ title, sponsors, large }) => {
+const TierBlock = ({ title, sponsors, large, row }) => {
   const colors = {
     richGold: "#D4AF37",
-    royalBlack: "#050505",
   };
 
   return (
@@ -127,51 +161,70 @@ const TierBlock = ({ title, sponsors, large }) => {
         {title}
       </h3>
 
-      <div className="flex flex-col items-center gap-6">
+      <div
+        className={`flex items-start justify-center gap-10 ${
+          row ? "flex-wrap" : "flex-col items-center"
+        }`}
+      >
         {sponsors.map((sponsor) => (
-          <motion.a
-            key={sponsor.name}
-            href={sponsor.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.05 }}
-            className={`
-              relative bg-gradient-to-b from-[#0b0b0b] to-[#050505]
-              ${large ? "w-[240px] h-[240px]" : "w-[200px] h-[200px]"}
-              flex items-center justify-center
-              transition-all duration-300
-            `}
-            style={{
-              clipPath:
-                "polygon(20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px), 0 20px)",
-              border: `1.5px solid ${colors.richGold}`,
-            }}
-          >
-            <img
-              src={sponsor.logo}
-              alt={sponsor.name}
+          <div key={sponsor.name} className="flex flex-col items-center gap-4">
+            <motion.a
+              href={sponsor.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
               className={`
-                object-contain
-                ${large ? "w-[200px] h-[200px]" : "w-[150px] h-[150px]"}
+                relative bg-gradient-to-b from-[#0b0b0b] to-[#050505]
+                ${large ? "w-[240px] h-[240px]" : "w-[200px] h-[200px]"}
+                flex items-center justify-center
+                transition-all duration-300
               `}
-            />
-          </motion.a>
-        ))}
+              style={{
+                clipPath:
+                  "polygon(20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px), 0 20px)",
+                border: `1.5px solid ${colors.richGold}`,
+              }}
+            >
+              {Array.isArray(sponsor.logo) ? (
+                <div className="flex items-center gap-3">
+                  <img
+                    src={sponsor.logo[0]}
+                    alt={sponsor.name}
+                    className="w-[70px] h-[70px] object-contain"
+                  />
 
-        {sponsors.map((sponsor) => (
-          <a
-            key={sponsor.name + "-btn"}
-            href={sponsor.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs uppercase tracking-[0.3em] transition-all duration-300 hover:tracking-[0.4em]"
-            style={{
-              fontFamily: "'Rajdhani', sans-serif",
-              color: colors.richGold,
-            }}
-          >
-            Visit Website ↗
-          </a>
+                  <div className="h-10 w-[1px] bg-[#D4AF37]" />
+
+                  <img
+                    src={sponsor.logo[1]}
+                    alt={sponsor.name}
+                    className="w-[70px] h-[70px] object-contain"
+                  />
+                </div>
+              ) : (
+                <img
+                  src={sponsor.logo}
+                  alt={sponsor.name}
+                  className={`object-contain ${
+                    large ? "w-[200px] h-[200px]" : "w-[150px] h-[150px]"
+                  }`}
+                />
+              )}
+            </motion.a>
+
+            <a
+              href={sponsor.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs uppercase tracking-[0.3em] transition-all duration-300 hover:tracking-[0.4em]"
+              style={{
+                fontFamily: "'Rajdhani', sans-serif",
+                color: colors.richGold,
+              }}
+            >
+              Visit Website ↗
+            </a>
+          </div>
         ))}
       </div>
     </div>
