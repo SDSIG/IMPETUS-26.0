@@ -15,6 +15,7 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { Home } from "./pages/Home";
 import { Events } from "./sections/Events";
 import { pageview } from "./utils/analytics";
+import { FAQ } from "./sections/faq";
 
 const ScrollToTopOnMount = () => {
   const { pathname } = useLocation();
@@ -60,6 +61,7 @@ function App() {
                   <Route path="/" element={<Home />} />
                   {/* <Route path="/events" element={<TempEvents />} /> */}
                   <Route path="/events" element={<Events />} />
+                  <Route path="/faq" element={<FAQ />} />
                 </Routes>
               </main>
 
